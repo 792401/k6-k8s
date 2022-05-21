@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k6-sample
+spec:
+  backoffLimit: 0
+  parallelism: 2
+  completions: 2
+  template:
+    spec:
+      containers:
+        - name: k6
+          image: grafana/k6
+          command: ['k6','run', '/src/test.js']
+          volumeMounts:
+          - name: load-tests 
+            mountPath: /src
+          # resources:
+          #   requests:
+          #     cpu: 1
+          #     memory: 4Gi
+      volumes:
+      - name: load-tests
+        configMap:
+          name: k8s-load-tests
+      restartPolicy: Never
