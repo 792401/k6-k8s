@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pi-with-timeout
+  name: pi
 spec:
   backoffLimit: 5
   activeDeadlineSeconds: 100
